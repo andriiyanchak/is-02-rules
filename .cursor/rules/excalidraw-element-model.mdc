@@ -1,0 +1,28 @@
+---
+description: Immutable elements, versions, Scene ordering, and schema changes
+globs:
+  - packages/element/**/*.ts
+  - packages/element/**/*.tsx
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
+
+RULE excalidraw-element-model APPLIED 🧱
+
+# Element model (`@excalidraw/element`)
+
+- Treat elements as **immutable**. Do not assign to element fields directly; use **`mutateElement`** (and follow project rules for **`version`** / **`versionNonce`** so render, history, and collab stay consistent).
+- **Z-order** uses fractional **`index`** strings. Prefer **`Scene`** APIs for reordering; avoid inventing index strings by hand unless you follow the same invariants as `Scene.ts`.
+- **New element properties:** update types in **`types.ts`**, defaults in **`newElement.ts`** (or equivalent factories), and **migration / defaults** in **`packages/excalidraw/data/restore.ts`** so old files still load.
+- **Collaboration:** reconciliation uses **version**; bugs in versioning here cause dropped updates or bad merges.
+
+```typescript
+// ❌ BAD
+element.x = 100;
+
+// ✅ GOOD
+mutateElement(element, { x: 100 });
+```

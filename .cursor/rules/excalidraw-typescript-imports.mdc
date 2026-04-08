@@ -1,0 +1,31 @@
+---
+description: TypeScript imports, Jotai entry points, and cross-package paths
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
+
+RULE excalidraw-typescript-imports APPLIED 📎
+
+# TypeScript and imports
+
+- Use `import type { … }` for **type-only** imports (ESLint enforces this).
+- **Inside `packages/excalidraw`**, do not import from the package barrel **`index.tsx`**. Import the **specific module** path instead.
+- **Jotai:** import atoms/helpers from `packages/excalidraw/editor-jotai.ts` or `excalidraw-app/app-jotai.ts`. Do not import from the `jotai` package directly in app/editor code.
+- Cross-package: use **`@excalidraw/common`**, `@excalidraw/element`, `@excalidraw/math`, `@excalidraw/utils` — not long relative paths into another package’s `src`.
+- Avoid new **browser-only** APIs in code paths used by **SSR** (e.g. Next.js example) unless there is a safe guard or fallback.
+
+```typescript
+// ❌ BAD (inside packages/excalidraw)
+import { foo } from "../index";
+import { atom } from "jotai";
+
+// ✅ GOOD
+import { foo } from "../components/some-module";
+import { atom } from "../editor-jotai";
+```

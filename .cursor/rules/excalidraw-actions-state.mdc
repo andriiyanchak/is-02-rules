@@ -1,0 +1,21 @@
+---
+description: ActionManager, ActionResult, captureUpdate, and registration
+globs:
+  - packages/excalidraw/actions/**/*.ts
+  - packages/excalidraw/actions/**/*.tsx
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
+
+RULE excalidraw-actions-state APPLIED ⚡
+
+# Actions (`packages/excalidraw/actions`)
+
+- Prefer **actions** for user-triggered, undoable editor changes. Wire keyboard shortcuts via **`keyTest`** and register with **`register()`** like existing `action*.ts(x)` files.
+- **`perform`** should return an **`ActionResult`**: `{ elements, appState, captureUpdate, … }`, or **`false`** to no-op.
+- Set **`captureUpdate`** correctly for **undo/redo** (e.g. `CaptureUpdateAction.IMMEDIATELY` when the change should be recorded — match nearby actions).
+- After adding an action file, **export** it from **`actions/index.ts`** so it is registered with **`ActionManager`**.
+- **`App.tsx`** holds pointer/tool orchestration; if an action only needs state transformation, keep logic in the action and keep `App.tsx` changes minimal.

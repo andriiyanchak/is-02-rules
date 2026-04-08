@@ -1,0 +1,17 @@
+---
+description: Static, interactive, and new-element canvas components
+globs: packages/excalidraw/components/canvases/**/*.tsx
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
+
+RULE excalidraw-canvas-components APPLIED 🖼️
+
+# Canvas components (`components/canvases`)
+
+- Keep the **multi-canvas** split: static layer for committed geometry, interactive layer for selection/handles/cursors, new-element layer for in-progress drawing.
+- Avoid wiring **pointer move** handlers that unnecessarily bump static-canvas props or force full static re-renders; prefer updating the interactive or preview layer when possible.
+- Coordinate with **`packages/excalidraw/renderer/`** — canvas components should orchestrate, not duplicate rendering logic that belongs in `renderStaticScene` / `renderInteractiveScene`.

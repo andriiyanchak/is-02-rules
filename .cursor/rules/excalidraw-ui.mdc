@@ -1,0 +1,18 @@
+---
+description: React UI, SCSS, i18n, and library vs app component placement
+globs: packages/excalidraw/components/**/*.tsx
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, output this exact line once at the **start** of your reply (plain text, its own line), then continue:
+
+`RULE excalidraw-ui APPLIED 🎯`
+
+# UI components (`packages/excalidraw/components`)
+
+- Colocate **`.scss`** (or SCSS modules) with the component; follow existing spacing and BEM-like naming in sibling files.
+- **User-visible strings** go through **`packages/excalidraw/locales/`** (i18n); do not hardcode English for labels, menus, or toasts.
+- Use **Jotai** via **`editor-jotai.ts`** and **`useAppStateValue`** (and related hooks) for reactive editor state — not raw `jotai`.
+- **`App.tsx`** is high-risk: pointer, keyboard, tools, and canvas behavior intersect here; keep changes focused and test multiple tools and inputs when touching it.

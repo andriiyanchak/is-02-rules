@@ -1,0 +1,20 @@
+---
+description: excalidraw-app collab, persistence, and boundaries with the library
+globs:
+  - excalidraw-app/**/*.ts
+  - excalidraw-app/**/*.tsx
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
+
+RULE excalidraw-app-integration APPLIED 🌐
+
+# App shell (`excalidraw-app`)
+
+- **`collab/`:** `Collab.tsx` orchestrates sessions; **`Portal.tsx`** wraps Socket.io. On remote updates, run **`reconcileElements`** (from `@excalidraw/excalidraw` data layer) before applying scene updates.
+- **`data/`:** Local persistence (`LocalData`, IndexedDB), Firebase, file manager, tab sync — app-specific. Reuse **`packages/excalidraw/data`** for encode/decode, restore, and reconcile.
+- **Env:** Vite exposes `VITE_APP_*` variables; don’t hardcode production URLs in new code without checking existing `.env.*` patterns.
+- **Jotai:** app-level atoms live in **`excalidraw-app/app-jotai.ts`**, not in raw `jotai`.

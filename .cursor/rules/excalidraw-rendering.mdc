@@ -1,0 +1,20 @@
+---
+description: Multi-canvas layers, static vs interactive redraws, Rough.js caching
+globs:
+  - packages/excalidraw/renderer/**/*.ts
+  - packages/excalidraw/renderer/**/*.tsx
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
+
+RULE excalidraw-rendering APPLIED 🎨
+
+# Rendering and canvases
+
+- Architecture splits **static** (committed elements), **interactive** (handles, selection, remote cursors), and **new element** preview. Do not force **static** scene redraws on every pointer move unless unavoidable.
+- **`renderStaticScene`:** Rough.js drawables are **cached** per element/version; avoid recreating drawable objects every frame when only the interactive overlay should change.
+- SVG export paths (`staticSvgScene`, etc.) should stay consistent with canvas rendering for the same elements.
+- Before large renderer changes, consider **performance** with many elements (hundreds+); keep hot loops allocation-light.

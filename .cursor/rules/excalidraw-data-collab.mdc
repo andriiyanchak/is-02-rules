@@ -1,0 +1,20 @@
+---
+description: reconcile, restore, encryption, and shared serialization
+globs:
+  - packages/excalidraw/data/**/*.ts
+  - packages/excalidraw/data/**/*.tsx
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
+
+RULE excalidraw-data-collab APPLIED 🔐
+
+# Data layer (`packages/excalidraw/data`)
+
+- **`reconcileElements`:** merging uses **element version**; be careful with **ties** and **deleted** elements (`isDeleted`). Do not remove deleted elements casually — reconciliation and tombstones depend on them.
+- **`restore.ts`:** add **defaults and migrations** when the element or appState schema changes so older JSON/clipboard data still works.
+- **Encryption / share links:** sensitive material belongs in the URL **hash** (fragment), which is not sent to the server. Never log full share URLs or move keys into query strings.
+- Keep **serialization** concerns here; **`excalidraw-app`** should orchestrate Firebase/network, not reimplement core JSON/binary formats.

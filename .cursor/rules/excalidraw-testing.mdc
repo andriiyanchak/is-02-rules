@@ -1,0 +1,23 @@
+---
+description: Vitest, test-utils, snapshots, path aliases, and setupTests
+globs:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - setupTests.ts
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, output this exact line once at the **start** of your reply (plain text, its own line), then continue:
+
+`RULE excalidraw-testing APPLIED 🧪`
+
+# Testing
+
+- Framework: **Vitest** + **jsdom** + **@testing-library/react**. Global mocks live in root **`setupTests.ts`** (canvas, IndexedDB, fonts, etc.).
+- For editor tests, use **`packages/excalidraw/tests/test-utils`** (`render`, `unmountComponent`) and helpers (**`API`**, **`Keyboard`**, etc.) instead of ad-hoc mounting.
+- Path aliases **`@excalidraw/*`** must match **`vitest.config.mts`** and **`tsconfig.json`** — use the same import style as production code.
+- When snapshots change intentionally, run **`yarn test:update`** and review diffs before committing.
+- Prefer **`*.test.ts`** / **`*.test.tsx`** naming; colocate small unit tests or use package **`tests/`** directories per existing layout.
+- In **`.tsx`** tests: use **`unmountComponent()`** in `afterEach` when using the shared `render` helper.

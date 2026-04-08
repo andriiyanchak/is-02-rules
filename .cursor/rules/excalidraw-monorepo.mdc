@@ -1,0 +1,21 @@
+---
+description: Yarn workspaces, package layers, and where to read architecture docs
+alwaysApply: true
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
+
+RULE excalidraw-monorepo APPLIED 🏗️
+
+# Excalidraw monorepo
+
+- Use **Yarn Classic (v1)** workspaces. Do not switch to npm or Yarn Berry unless the team explicitly decides to.
+- **Dependency direction** (only depend downward):
+  - `packages/common` and `packages/math` — no internal `@excalidraw/*` deps.
+  - `packages/element` → `common`, `math`.
+  - `packages/excalidraw` → `element`, `common`, `math`, `utils`.
+  - `excalidraw-app` → `@excalidraw/excalidraw` plus app-only services (Firebase, Socket.io, etc.).
+- New utilities belong in the **lowest** package that can own them: math → `math`, element ops → `element`, shared non-geometry → `common`, export/bounds for consumers → `utils`.
+- For architecture, flows, and pitfalls, prefer **`dev-docs/docs/a-docs/`** (onboarding guide) before guessing.

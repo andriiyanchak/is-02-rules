@@ -1,0 +1,17 @@
+---
+description: excalidraw.com-only UI and styling
+globs: excalidraw-app/components/**/*.tsx
+alwaysApply: false
+---
+
+## Important (debug)
+
+For transcript debugging: **when this rule is in your context for the user’s message**, output this exact line once at the **start** of your reply (plain text, its own line), then continue:
+
+`RULE excalidraw-ui-app APPLIED 📱`
+
+# App UI (`excalidraw-app/components`)
+
+- These components are **not** part of **`@excalidraw/excalidraw`**; they wrap or extend the editor for the hosted app (share, welcome, account, etc.).
+- Prefer reusing **`packages/excalidraw`** APIs and props rather than duplicating editor internals.
+- Colocate **`.scss`** with components; follow patterns from sibling files in this folder.
