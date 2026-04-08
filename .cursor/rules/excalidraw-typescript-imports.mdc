@@ -29,3 +29,9 @@ import { atom } from "jotai";
 import { foo } from "../components/some-module";
 import { atom } from "../editor-jotai";
 ```
+
+## How to verify
+
+- Run **`yarn test:code`** — ESLint flags **`import/type`** and many forbidden import paths.
+- Run **`yarn test:typecheck`** — resolves **`@excalidraw/*`** aliases the same as CI; catches wrong relative hops between packages.
+- For **Next.js / SSR**: build or run **`examples/with-nextjs`** (or your SSR path) after changes that might touch `window` / `document` without guards.

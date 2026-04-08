@@ -19,3 +19,10 @@ RULE excalidraw-monorepo APPLIED 🏗️
   - `excalidraw-app` → `@excalidraw/excalidraw` plus app-only services (Firebase, Socket.io, etc.).
 - New utilities belong in the **lowest** package that can own them: math → `math`, element ops → `element`, shared non-geometry → `common`, export/bounds for consumers → `utils`.
 - For architecture, flows, and pitfalls, prefer **`dev-docs/docs/a-docs/`** (onboarding guide) before guessing.
+
+## How to verify
+
+- Run **`yarn test:typecheck`** — catches bad cross-package imports and missing types after refactors.
+- Run **`yarn test:code`** (ESLint) — enforces import rules and dependency boundaries in many cases.
+- After changing **`package.json`** / workspaces: **`yarn install`** from repo root; **`yarn build:packages`** then **`yarn build`** for a full compile smoke test.
+- If you added a dependency to **`packages/common`** or **`packages/math`**, confirm it does not import other **`@excalidraw/*`** packages (review `package.json` + imports).

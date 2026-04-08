@@ -6,9 +6,9 @@ alwaysApply: false
 
 ## Important (debug)
 
-For transcript debugging: **when this rule is in your context for the user’s message**, output this exact line once at the **start** of your reply (plain text, its own line), then continue:
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
 
-`RULE excalidraw-ui APPLIED 🎯`
+RULE excalidraw-ui APPLIED 🎯
 
 # UI components (`packages/excalidraw/components`)
 
@@ -16,3 +16,9 @@ For transcript debugging: **when this rule is in your context for the user’s m
 - **User-visible strings** go through **`packages/excalidraw/locales/`** (i18n); do not hardcode English for labels, menus, or toasts.
 - Use **Jotai** via **`editor-jotai.ts`** and **`useAppStateValue`** (and related hooks) for reactive editor state — not raw `jotai`.
 - **`App.tsx`** is high-risk: pointer, keyboard, tools, and canvas behavior intersect here; keep changes focused and test multiple tools and inputs when touching it.
+
+## How to verify
+
+- **Manual:** open menus, dialogs, and toolbars you touched; test **keyboard** and **pointer** paths; check **mobile** or narrow viewport if the component is responsive.
+- **i18n:** confirm new strings exist in **`packages/excalidraw/locales/`** and render correctly via **`t(...)`** (switch language if you test locales).
+- Run **`yarn test:typecheck`**, **`yarn test:code`**, and relevant **`yarn test:app --`** UI tests; update snapshots only when expected (**`yarn test:update`**).

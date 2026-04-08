@@ -9,9 +9,9 @@ alwaysApply: false
 
 ## Important (debug)
 
-For transcript debugging: **when this rule is in your context for the user’s message**, output this exact line once at the **start** of your reply (plain text, its own line), then continue:
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
 
-`RULE excalidraw-testing APPLIED 🧪`
+RULE excalidraw-testing APPLIED 🧪
 
 # Testing
 
@@ -21,3 +21,9 @@ For transcript debugging: **when this rule is in your context for the user’s m
 - When snapshots change intentionally, run **`yarn test:update`** and review diffs before committing.
 - Prefer **`*.test.ts`** / **`*.test.tsx`** naming; colocate small unit tests or use package **`tests/`** directories per existing layout.
 - In **`.tsx`** tests: use **`unmountComponent()`** in `afterEach` when using the shared `render` helper.
+
+## How to verify
+
+- Run the test file you changed: **`yarn test:app -- path/to/file.test.tsx`**.
+- Run **`yarn test:app --watch=false`** before commit; use **`yarn test:update`** only when snapshot changes are intentional, then **review diffs**.
+- Run **`yarn test:typecheck`** — ensures test imports and **`@excalidraw/*`** aliases resolve like CI.

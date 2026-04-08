@@ -18,3 +18,9 @@ RULE excalidraw-app-integration APPLIED 🌐
 - **`data/`:** Local persistence (`LocalData`, IndexedDB), Firebase, file manager, tab sync — app-specific. Reuse **`packages/excalidraw/data`** for encode/decode, restore, and reconcile.
 - **Env:** Vite exposes `VITE_APP_*` variables; don’t hardcode production URLs in new code without checking existing `.env.*` patterns.
 - **Jotai:** app-level atoms live in **`excalidraw-app/app-jotai.ts`**, not in raw `jotai`.
+
+## How to verify
+
+- Run **`yarn start`** and exercise the feature (localStorage / share / collab as relevant).
+- Run **`yarn test:typecheck`** and **`yarn test:app -- excalidraw-app`** (or specific tests under **`excalidraw-app/tests/`**).
+- **Collab / Firebase:** test with dev **`VITE_APP_*`** defaults; confirm no new hardcoded prod URLs without env alignment.

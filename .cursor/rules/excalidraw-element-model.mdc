@@ -26,3 +26,10 @@ element.x = 100;
 // ✅ GOOD
 mutateElement(element, { x: 100 });
 ```
+
+## How to verify
+
+- Run **`yarn test:typecheck`**.
+- Run targeted tests: **`yarn test:app -- packages/element`** (or a specific file under **`packages/element/tests/`**).
+- **Manual:** draw, move, undo/redo, and (if you changed structure) **collaborate with two browsers** on the same room to confirm versions and ordering.
+- **Regression:** load an **old saved `.excalidraw` file** after schema changes to confirm **`restore.ts`** paths still work.

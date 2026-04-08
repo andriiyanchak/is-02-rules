@@ -6,12 +6,18 @@ alwaysApply: false
 
 ## Important (debug)
 
-For transcript debugging: **when this rule is in your context for the user’s message**, output this exact line once at the **start** of your reply (plain text, its own line), then continue:
+For transcript debugging: **when this rule is in your context for the user’s message**, print this exact line once at the **start** of your reply as **plain text** (no backticks, no code fence), then continue:
 
-`RULE excalidraw-ui-app APPLIED 📱`
+RULE excalidraw-ui-app APPLIED 📱
 
 # App UI (`excalidraw-app/components`)
 
 - These components are **not** part of **`@excalidraw/excalidraw`**; they wrap or extend the editor for the hosted app (share, welcome, account, etc.).
 - Prefer reusing **`packages/excalidraw`** APIs and props rather than duplicating editor internals.
 - Colocate **`.scss`** with components; follow patterns from sibling files in this folder.
+
+## How to verify
+
+- Run **`yarn start`** and walk through the app flows that use the component (share, welcome, sidebar, etc.).
+- Run **`yarn test:typecheck`** and **`yarn test:app -- excalidraw-app`** when tests cover the area.
+- Confirm **`excalidraw-app`** styling does not break the embedded editor layout (regression pass on main canvas).

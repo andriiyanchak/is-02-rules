@@ -18,3 +18,9 @@ RULE excalidraw-rendering APPLIED 🎨
 - **`renderStaticScene`:** Rough.js drawables are **cached** per element/version; avoid recreating drawable objects every frame when only the interactive overlay should change.
 - SVG export paths (`staticSvgScene`, etc.) should stay consistent with canvas rendering for the same elements.
 - Before large renderer changes, consider **performance** with many elements (hundreds+); keep hot loops allocation-light.
+
+## How to verify
+
+- **Manual:** draw, select, drag with **many elements** on canvas; confirm no obvious jank on pointer move.
+- **Export:** PNG and SVG for the same scene; visuals should match expectations vs on-screen canvas.
+- Run **`yarn test:typecheck`** and renderer-related tests if present (**`yarn test:app -- packages/excalidraw/renderer`** or **`export.test`** under **`packages/excalidraw/tests/`**).

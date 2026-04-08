@@ -15,3 +15,9 @@ RULE excalidraw-canvas-components APPLIED 🖼️
 - Keep the **multi-canvas** split: static layer for committed geometry, interactive layer for selection/handles/cursors, new-element layer for in-progress drawing.
 - Avoid wiring **pointer move** handlers that unnecessarily bump static-canvas props or force full static re-renders; prefer updating the interactive or preview layer when possible.
 - Coordinate with **`packages/excalidraw/renderer/`** — canvas components should orchestrate, not duplicate rendering logic that belongs in `renderStaticScene` / `renderInteractiveScene`.
+
+## How to verify
+
+- **Manual:** exercise tools that use each canvas layer (draw, select, resize, multi-select); confirm static content does not “flash” or rebuild unnecessarily on every move.
+- Compare **export PNG/SVG** with on-screen appearance after your change.
+- Run **`yarn test:typecheck`** and integration tests that hit the canvas (**`yarn test:app --`** relevant `*.test.tsx` under **`packages/excalidraw/tests/`**).

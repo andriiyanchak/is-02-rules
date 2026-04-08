@@ -18,3 +18,10 @@ RULE excalidraw-data-collab APPLIED 🔐
 - **`restore.ts`:** add **defaults and migrations** when the element or appState schema changes so older JSON/clipboard data still works.
 - **Encryption / share links:** sensitive material belongs in the URL **hash** (fragment), which is not sent to the server. Never log full share URLs or move keys into query strings.
 - Keep **serialization** concerns here; **`excalidraw-app`** should orchestrate Firebase/network, not reimplement core JSON/binary formats.
+
+## How to verify
+
+- **Round-trip:** save → reload → export JSON; paste from clipboard; open a **share link** / old file fixture after **`restore`** changes.
+- **Collab:** two clients, same room — concurrent edits, deletes, and reordering; watch for duplicates or vanishing elements after **`reconcileElements`** changes.
+- Run **`yarn test:typecheck`** and tests touching **`packages/excalidraw/data/`** (e.g. **`yarn test:app -- packages/excalidraw/data`** or specific `*.test.ts`).
+- **Encryption:** ensure keys stay in the URL **hash** only; grep for accidental logging of full share URLs in new code.
