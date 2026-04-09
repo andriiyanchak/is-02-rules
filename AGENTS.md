@@ -1,4 +1,4 @@
-# AGENT.md
+# AGENTS.md
 
 Persistent context for AI coding agents and developers working in this repository. Aligns with **`dev-docs/docs/a-docs/`**, **`.cursor/rules/`**, and project tooling.
 
